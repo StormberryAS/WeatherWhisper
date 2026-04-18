@@ -1,0 +1,21 @@
+WeatherWhisper – Hyper‑Local Micro‑Forecasts
+
+Core Functionality:
+- Show a 24‑hour "feels‑like" temperature curve for any city in the database.
+- Use subtle animated gradients to indicate temperature changes.
+- No external APIs – ship a small, compressed historical dataset that the browser interpolates.
+
+Why it fits:
+- Leverages the same city list used by MoonApp and SunApp.
+- Demonstrates how much can be done offline, reinforcing privacy‑first values.
+- Shares the premium dark‑mode glass‑morphism UI.
+
+Potential UI Elements:
+- Glass‑morphism card with a smooth temperature line chart.
+- Gradient background that shifts from cool blues to warm reds.
+- Tooltip showing exact temperature at each hour.
+
+Design & Development Rules:
+- All pages must have footers as similar to SunApp as possible.
+- The favicon in SVG must be in the mainhead.
+- Once ready, I want to see it in localhost before we git push it.
