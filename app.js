@@ -4,6 +4,8 @@
 
 const cityInput = document.getElementById('city-input');
 const datalist = document.getElementById('city-datalist');
+const dateStart = document.getElementById('date-start');
+const dateEnd = document.getElementById('date-end');
 const timeSlider = document.getElementById('time-slider');
 const timeVal = document.getElementById('time-val');
 const tempVal = document.getElementById('temp-val');
@@ -27,12 +29,25 @@ function initCities() {
   
   currentCity = null;
   cityInput.value = "";
+  
+  // Set default dates
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  dateStart.value = todayStr;
+  dateEnd.value = todayStr;
 }
 
-function getDayOfYear() {
-  const now = new Date();
-  const start = new Date(now.getFullYear(), 0, 0);
-  const diff = now - start;
+function getMidpointDayOfYear() {
+  const d1 = new Date(dateStart.value || new Date());
+  let d2 = new Date(dateEnd.value || new Date());
+  
+  if (d2 < d1) d2 = d1; // prevent negative ranges
+  
+  const midTime = d1.getTime() + (d2.getTime() - d1.getTime()) / 2;
+  const midDate = new Date(midTime);
+  
+  const startOfYear = new Date(midDate.getFullYear(), 0, 0);
+  const diff = midDate - startOfYear;
   const oneDay = 1000 * 60 * 60 * 24;
   return Math.floor(diff / oneDay);
 }
@@ -45,7 +60,7 @@ function formatTime(hour) {
 }
 
 function calculateTemperature(lat, hour) {
-  const dayOfYear = getDayOfYear();
+  const dayOfYear = getMidpointDayOfYear();
   
   // Mathematical Climate Model
   const latFactor = Math.abs(lat) / 90;
@@ -96,6 +111,8 @@ function updateUI() {
 // Event Listeners
 cityInput.addEventListener('input', updateUI);
 cityInput.addEventListener('change', updateUI);
+dateStart.addEventListener('change', updateUI);
+dateEnd.addEventListener('change', updateUI);
 timeSlider.addEventListener('input', updateUI);
 
 // Init

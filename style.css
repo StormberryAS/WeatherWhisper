@@ -77,8 +77,15 @@ h1, h2, h3 { color: var(--text-primary); font-weight: 600; line-height: 1.2; let
 .city-contact a { color: var(--text-secondary); text-decoration: underline; transition: color var(--t-fast); }
 .city-contact a:hover { color: var(--accent-white); }
 
+/* Date Range */
+.date-range-wrapper { display: flex; gap: var(--sp-md); margin-bottom: var(--sp-lg); }
+.date-input-group { flex: 1; display: flex; flex-direction: column; gap: var(--sp-xs); }
+.date-input-group label { font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+.date-input { width: 100%; padding: 0.75rem; border-radius: var(--r-md); background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: var(--text-primary); font-family: var(--font-sans); font-size: 1rem; color-scheme: dark; transition: border-color var(--t-fast); }
+.date-input:focus { outline: none; border-color: var(--accent-primary); }
+
 /* Result Display */
-.result-box { text-align: center; padding-top: var(--sp-md); margin-bottom: var(--sp-lg); }
+.result-box { text-align: center; padding-top: var(--sp-xs); margin-bottom: var(--sp-lg); }
 .result-label { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: var(--sp-xs); transition: color var(--t-med); text-transform: uppercase; letter-spacing: 0.05em; }
 .result-temp { font-size: clamp(3rem, 10vw, 5rem); font-weight: 800; color: var(--accent-white); font-variant-numeric: tabular-nums; line-height: 1; text-shadow: 0 0 20px var(--accent-primary); transition: text-shadow var(--t-med); }
 
