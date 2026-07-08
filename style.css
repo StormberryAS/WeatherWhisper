@@ -70,10 +70,12 @@ h1, h2, h3 { color: var(--text-primary); font-weight: 600; line-height: 1.2; let
 .city-select-wrapper { margin-bottom: var(--sp-xl); }
 .city-select {
   width: 100%; padding: 1rem; border-radius: var(--r-md); background: rgba(0,0,0,0.3); border: 1px solid var(--border);
-  color: var(--text-primary); font-size: 1rem; font-family: var(--font-sans); cursor: pointer; transition: border-color var(--t-fast);
+  color: var(--text-primary); font-size: 1rem; font-family: var(--font-sans); cursor: text; transition: border-color var(--t-fast);
 }
 .city-select:focus { outline: none; border-color: var(--accent-primary); }
-.city-select option { background: #111; color: #fff; }
+.city-contact { text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.6rem; }
+.city-contact a { color: var(--text-secondary); text-decoration: underline; transition: color var(--t-fast); }
+.city-contact a:hover { color: var(--accent-white); }
 
 /* Result Display */
 .result-box { text-align: center; padding-top: var(--sp-md); margin-bottom: var(--sp-lg); }

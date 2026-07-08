@@ -32,9 +32,11 @@
   <main class="main-content">
     <div class="card">
       <div class="city-select-wrapper">
-        <select id="city-select" class="city-select">
+        <input type="text" id="city-input" class="city-select" list="city-datalist" placeholder="Search for a city..." autocomplete="off">
+        <datalist id="city-datalist">
           <!-- Populated by JS -->
-        </select>
+        </datalist>
+        <p class="city-contact">Didn't find your city? <a href="mailto:contact@stormberry.as">Contact us.</a></p>
       </div>
 
       <div class="result-box">

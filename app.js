@@ -2,32 +2,33 @@
    Offline mathematical climate interpolation.
 */
 
-const citySelect = document.getElementById('city-select');
+const cityInput = document.getElementById('city-input');
+const datalist = document.getElementById('city-datalist');
 const timeSlider = document.getElementById('time-slider');
 const timeVal = document.getElementById('time-val');
 const tempVal = document.getElementById('temp-val');
 const root = document.documentElement;
 
+let currentCity = null;
+
 // Populate cities
 function initCities() {
-  // CITIES is loaded from cities.js
   const sorted = CITIES.sort((a, b) => a.name.localeCompare(b.name));
-  
-  // Create document fragment for performance
   const fragment = document.createDocumentFragment();
   
-  sorted.forEach((city, index) => {
+  sorted.forEach((city) => {
+    city.fullName = `${city.name}, ${city.country}`;
     const opt = document.createElement('option');
-    opt.value = index;
-    opt.textContent = `${city.name}, ${city.country}`;
+    opt.value = city.fullName;
     fragment.appendChild(opt);
   });
   
-  citySelect.appendChild(fragment);
+  datalist.appendChild(fragment);
   
   // Default to Oslo if exists, else first
-  const osloIdx = sorted.findIndex(c => c.name === 'Oslo');
-  citySelect.value = osloIdx !== -1 ? osloIdx : 0;
+  const oslo = sorted.find(c => c.name === 'Oslo');
+  currentCity = oslo || sorted[0];
+  cityInput.value = currentCity.fullName;
 }
 
 function getDayOfYear() {
@@ -49,19 +50,16 @@ function calculateTemperature(lat, hour) {
   const dayOfYear = getDayOfYear();
   
   // Mathematical Climate Model
-  // 1. Base temperature decreases as latitude increases (0 at pole, 30 at equator)
   const latFactor = Math.abs(lat) / 90;
   let baseTemp = 30 - (latFactor * 45); 
   
-  // 2. Seasonal variation (peaks around July 21st (day 202) for North, Jan 21 for South)
   const seasonOffset = ((dayOfYear - 202) / 365) * 2 * Math.PI;
-  const seasonalAmp = latFactor * 20; // Poles have huge swings, equator has none
+  const seasonalAmp = latFactor * 20; 
   const hemisphereMult = lat >= 0 ? 1 : -1;
   
   const dailyMean = baseTemp + (hemisphereMult * seasonalAmp * Math.cos(seasonOffset));
   
-  // 3. Diurnal (Daily) variation (peaks at 15:00, coldest at 03:00)
-  const diurnalAmp = 6 + (latFactor * 4); // Deserts/higher lats have more swing
+  const diurnalAmp = 6 + (latFactor * 4); 
   const hourOffset = ((hour - 15) / 24) * 2 * Math.PI;
   
   const finalTemp = dailyMean + (diurnalAmp * Math.cos(hourOffset));
@@ -69,24 +67,22 @@ function calculateTemperature(lat, hour) {
 }
 
 function updateUI() {
-  const selectedIdx = citySelect.value;
-  const city = CITIES[selectedIdx];
-  const hour = parseFloat(timeSlider.value);
+  // Try to find the city matching input
+  const found = CITIES.find(c => c.fullName === cityInput.value);
+  if (found) {
+    currentCity = found;
+  }
   
+  if (!currentCity) return;
+  
+  const hour = parseFloat(timeSlider.value);
   timeVal.textContent = formatTime(hour);
   
-  const temp = calculateTemperature(city.lat, hour);
+  const temp = calculateTemperature(currentCity.lat, hour);
   tempVal.textContent = `${Math.round(temp)}°C`;
-  
-  // Map temp to Hue: 
-  // 35°C+ -> 0 (Red)
-  // 15°C -> 60 (Yellow)
-  // 0°C -> 180 (Cyan)
-  // -10°C -> 240 (Blue)
   
   // Clamp temp between -15 and 40
   const clamped = Math.max(-15, Math.min(temp, 40));
-  // Map range [-15, 40] to [240, 0]
   const pct = (clamped + 15) / 55; // 0.0 to 1.0
   const targetHue = 240 - (pct * 240);
   
@@ -94,7 +90,8 @@ function updateUI() {
 }
 
 // Event Listeners
-citySelect.addEventListener('change', updateUI);
+cityInput.addEventListener('input', updateUI);
+cityInput.addEventListener('change', updateUI);
 timeSlider.addEventListener('input', updateUI);
 
 // Init
