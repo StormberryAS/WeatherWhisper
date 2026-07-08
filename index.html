@@ -31,36 +31,44 @@
 
   <main class="main-content">
     <div class="card">
+      <div class="input-label">Search city or country</div>
       <div class="city-select-wrapper">
-        <input type="text" id="city-input" class="city-select" list="city-datalist" placeholder="Search for a city..." autocomplete="off">
+        <input type="text" id="city-input" class="city-select" list="city-datalist" placeholder="e.g. Oslo, Norway" autocomplete="off">
         <datalist id="city-datalist">
           <!-- Populated by JS -->
         </datalist>
         <p class="city-contact">Didn't find your city? <a href="mailto:contact@stormberry.as">Contact us.</a></p>
       </div>
 
+      <div class="input-label">Date</div>
       <div class="date-range-wrapper">
-        <div class="date-input-group">
-          <label for="date-start">Arrival</label>
-          <input type="date" id="date-start" class="date-input">
+        <input type="date" id="date-start" class="date-input" title="Start Date">
+        <span class="date-separator">-</span>
+        <input type="date" id="date-end" class="date-input" title="End Date (Optional)">
+      </div>
+
+      <!-- Single Date View -->
+      <div id="single-date-view">
+        <div class="result-box">
+          <div class="result-label">Estimated Temp</div>
+          <div class="result-temp" id="temp-val">--°C</div>
         </div>
-        <div class="date-input-group">
-          <label for="date-end">Departure</label>
-          <input type="date" id="date-end" class="date-input">
+
+        <div class="slider-container">
+          <div class="slider-label">
+            <span>Time of Day</span>
+            <span class="slider-val" id="time-val">12:00 PM</span>
+          </div>
+          <input type="range" id="time-slider" min="0" max="23" step="1" value="12" />
         </div>
       </div>
 
-      <div class="result-box">
-        <div class="result-label">Estimated Temp</div>
-        <div class="result-temp" id="temp-val">--°C</div>
-      </div>
-
-      <div class="slider-container">
-        <div class="slider-label">
-          <span>Time of Day</span>
-          <span class="slider-val" id="time-val">12:00 PM</span>
+      <!-- Date Range View -->
+      <div id="range-date-view" style="display: none;">
+        <h3 class="range-title">Daily Forecast</h3>
+        <div class="range-list" id="range-list">
+          <!-- Populated by JS -->
         </div>
-        <input type="range" id="time-slider" min="0" max="23" step="1" value="12" />
       </div>
     </div>
   </main>
