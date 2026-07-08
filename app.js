@@ -25,10 +25,8 @@ function initCities() {
   
   datalist.appendChild(fragment);
   
-  // Default to Oslo if exists, else first
-  const oslo = sorted.find(c => c.name === 'Oslo');
-  currentCity = oslo || sorted[0];
-  cityInput.value = currentCity.fullName;
+  currentCity = null;
+  cityInput.value = "";
 }
 
 function getDayOfYear() {
@@ -71,12 +69,18 @@ function updateUI() {
   const found = CITIES.find(c => c.fullName === cityInput.value);
   if (found) {
     currentCity = found;
+  } else {
+    currentCity = null;
   }
-  
-  if (!currentCity) return;
   
   const hour = parseFloat(timeSlider.value);
   timeVal.textContent = formatTime(hour);
+
+  if (!currentCity) {
+    tempVal.textContent = '--°C';
+    root.style.setProperty('--bg-hue', 220);
+    return;
+  }
   
   const temp = calculateTemperature(currentCity.lat, hour);
   tempVal.textContent = `${Math.round(temp)}°C`;
