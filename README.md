@@ -2,7 +2,7 @@
 
 Hyper-local offline micro-forecasts. WeatherWhisper deterministically generates a mathematically modeled 24-hour "feels-like" temperature curve for over 2,000 cities offline by interpolating a localized climate model—no external API calls required.
 
-**Live:** [whisper.stormberry.as](https://whisper.stormberry.as)
+**Live:** [weather.stormberry.as](https://weather.stormberry.as)
 
 ## Features
 - **Offline Interpolation**: Uses a deterministic mathematical climate model based on latitude and solar position to estimate a standard diurnal temperature curve.
