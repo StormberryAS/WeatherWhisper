@@ -82,9 +82,9 @@ h1, h2, h3 { color: var(--text-primary); font-weight: 600; line-height: 1.2; let
 
 /* Date Range */
 .date-range-wrapper { display: flex; align-items: center; gap: var(--sp-md); margin-bottom: var(--sp-xl); width: 100%; }
-.date-input { flex: 1; width: 100%; padding: 1rem; border-radius: var(--r-md); background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: var(--text-primary); font-family: var(--font-sans); font-size: 1rem; color-scheme: dark; transition: border-color var(--t-fast), box-shadow var(--t-fast); -webkit-appearance: none; appearance: none; }
+.date-input { flex: 1; width: 100%; padding: 1rem; border-radius: var(--r-md); background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: var(--text-primary); font-family: var(--font-sans); font-size: 1rem; color-scheme: dark; transition: border-color var(--t-fast), box-shadow var(--t-fast); }
 .date-input:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px rgba(255,255,255,0.1); }
-.date-input::-webkit-calendar-picker-indicator { cursor: pointer; opacity: 0.7; transition: opacity var(--t-fast); }
+.date-input::-webkit-calendar-picker-indicator { cursor: pointer; filter: invert(0.8) sepia(0) saturate(0) hue-rotate(0deg); opacity: 0.7; transition: opacity var(--t-fast); }
 .date-input::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 .date-separator { color: var(--text-muted); font-weight: 600; padding: 0 0.5rem; }
 
