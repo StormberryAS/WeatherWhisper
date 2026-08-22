@@ -26,3 +26,13 @@ Open `http://localhost:3006` in your browser.
 
 ## Credits
 Built by [Stormberry AS](https://stormberry.as). Proudly powered by sovereign AI agents.
+
+## Disclaimer
+
+Supplied free of charge, **as is**, with no warranty of any kind. Using it creates no client or advisory relationship with Stormberry AS, and nothing it produces is professional advice.
+
+**The forecasts in WeatherWhisper are modelled, not observed.** They are generated from latitude and solar position by a deterministic climate model that runs entirely offline. No weather station, satellite or forecast service is consulted, and the figures bear no relation to actual conditions where you are. For a real forecast use [MET Norway / Yr](https://www.yr.no/) or your national service.
+
+This is a **functioning prototype**, not a certified instrument and not a professional service. **Its readings are simulated and are not real data.** Do not use it as a source for any decision at all. Stormberry AS reimburses no cost or loss arising from use of this application.
+
+Full terms: [DISCLAIMER.md](DISCLAIMER.md).
