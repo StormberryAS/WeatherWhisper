@@ -1,17 +1,20 @@
 # WeatherWhisper
 
-Hyper-local offline micro-forecasts. WeatherWhisper deterministically generates a mathematically modeled 24-hour "feels-like" temperature curve for over 2,000 cities offline by interpolating a localized climate model—no external API calls required.
+Hyper-local offline micro-forecasts. WeatherWhisper deterministically generates a mathematically modelled 24-hour "feels-like" temperature curve for over 2,000 cities offline by interpolating a localised climate model, with no external API calls required.
 
 **Live:** [weather.stormberry.as](https://weather.stormberry.as)
 
 ## Features
 - **Offline Interpolation**: Uses a deterministic mathematical climate model based on latitude and solar position to estimate a standard diurnal temperature curve.
 - **Fluid Temperature Background**: The background gradient dynamically shifts from cool blues to warm reds as you scrub through the 24-hour chart.
-- **Responsive Layout**: Optimized for mobile and desktop with a cinematic dark glassmorphism theme.
+- **Responsive Layout**: Optimised for mobile and desktop with a cinematic dark glassmorphism theme.
 - **Stormberry Ecosystem**: Uses the identical 2,000+ city database powering `SunApp` and `MoonApp`.
 
 ## Architecture
-- **Vanilla HTML/CSS/JS**, no frameworks, no build step.
+- **Vanilla HTML and CSS, TypeScript**, no frameworks.
+- **TypeScript source in `ts/`, compiled JavaScript committed.** `ts/app.ts` compiles to `app.js`, at the same path the page has always loaded, as a classic script (no modules). The compiled file is committed because GitHub Pages serves the repository as it is, with no build step of its own; `.gitattributes` marks it as generated. Edit the TypeScript, never the `.js`.
+- **Generated files kept as they are.** `cities.js` is the shared Stormberry Labs city catalogue, written by SunApp's `update_cities.py`; `ts/cities.d.ts` types it for the TypeScript. `gate.js` and `gate.css`, the first-run notice, are written by the shared `build-gates.py`. None of them is edited here.
+- **Build:** `npm run build` (`tools/build-ts.sh`) installs the pinned compiler (`npm ci`), compiles, then runs `bump_assets.py` to restamp the `?v=` cache stamps. `npm run check` changes nothing and fails when the committed JavaScript is not what the TypeScript compiles to. `npm test` runs the tests in `tests/` with the test runner built into Node 24. The published app has no runtime dependencies.
 - **Privacy First**, no cookies, no tracking. Zero external API calls.
 - Stormberry dark-mode glassmorphism design system, Inter typography.
 - **Sovereign AI**, built and maintained using high-speed agentic workflows.
