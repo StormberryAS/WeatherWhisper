@@ -33,7 +33,7 @@ matter with its own written agreement, and this is not it.
 
 ## Specific to WeatherWhisper
 
-**The forecasts in WeatherWhisper are modelled, not observed.** They are generated from latitude and solar position by a deterministic climate model that runs entirely offline. No weather station, satellite or forecast service is consulted, and the figures bear no relation to actual conditions where you are. For a real forecast use [MET Norway / Yr](https://www.yr.no/) or your national service.
+**The forecasts in WeatherWhisper are modelled, not observed.** They are generated from latitude, the day of the year and the hour by a simple deterministic model that runs in your browser. No weather station, satellite or forecast service is consulted, and the figures bear no relation to actual conditions where you are. For a real forecast use [MET Norway / Yr](https://www.yr.no/) or your national service.
 
 ## No warranty
 

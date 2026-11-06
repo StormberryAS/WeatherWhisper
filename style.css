@@ -46,6 +46,9 @@ body {
   transition: background-color var(--t-med);
 }
 
+/* Form controls take the page font (the font is always Inter): browsers draw them in their own font. */
+button, input, select, textarea { font-family: var(--font-sans); }
+
 h1, h2, h3 { color: var(--text-primary); font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; }
 
 .site-header { padding: var(--sp-xl) var(--sp-md); text-align: center; }
@@ -215,6 +218,7 @@ input[type=range]::-webkit-slider-thumb { height: 24px; width: 24px; border-radi
    own form styles off it. */
 .app-switcher-container input.switcher-pause {
   all: revert;
+  font-family: var(--font-sans);
   margin: 0 0.5rem 0.75rem 0;
   vertical-align: middle;
   accent-color: var(--text-primary);

@@ -15,10 +15,10 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const COMPILED = ['app.js'];
 /** The generator output, by sha256: cities.js and gate.css as at d75fc01 (cities.js is also SunApp's, byte for byte),
- * gate.js as the current build-gates.py wrote it on 6 November 2026 (tsc 6.0.3; script sha256 e184db18...52ca). */
+ * gate.js as the current build-gates.py wrote it on 6 November 2026 (tsc 6.0.3; script sha256 fc7f91ba...6b82). */
 const GENERATED: Record<string, string> = {
   'cities.js': '2f08782c7f41df5eb95c15a4a668a389505bd4bfba059040d048cbc1324afce2',
-  'gate.js': 'e6fee1d22d7cc1b0361f925a19feb985a027c46fa50556c872c4b4214915247f',
+  'gate.js': 'd5a0f58e07b26962a26eff81b6fd505d6f185b5914a3caf04014d2328484be16',
   'gate.css': 'a6476e69d0f625d74fa2d84f5e23620bd7d0129781de24c116619a3100f7c190',
 };
 const GENERATED_JS = Object.keys(GENERATED).filter((f) => f.endsWith('.js'));

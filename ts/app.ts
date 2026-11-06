@@ -3,7 +3,7 @@
     refuses to overwrite a hand edit, and its check mode fails on one. */
 
 /* WeatherWhisper Logic
-   Offline mathematical climate interpolation.
+   Modelled temperatures from latitude, season and time of day.
 
    A classic script, not a module: index.html loads cities.js (the shared Labs city catalogue,
    which publishes the global CITIES, typed in ts/cities.d.ts) and then app.js at the end of the

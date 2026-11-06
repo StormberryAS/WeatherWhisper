@@ -48,7 +48,7 @@
         '<div class="sb-gate-body" id="' + BODY_ID + '">',
         '<p>This is a functioning prototype, published to show what Stormberry AS builds. It is not a certified instrument, not a professional service, and not a substitute for an authoritative source.</p>',
         '<p>It is <strong>not a finished product</strong>, it is not maintained as one, and <strong>it will eventually stop working</strong>: data moves, interfaces change, and nothing here is kept in step with them. Its purpose is to show a potential use of AI, making a possibility visible quickly so it can be judged and then built properly if it is worth building.</p>',
-        '<p><strong>The forecast here is simulated.</strong> It is modelled offline from latitude and solar position. No weather station, satellite or forecast service is consulted, so the figures bear no relation to the actual conditions where you are.</p>',
+        '<p><strong>The forecast here is simulated.</strong> It is modelled in your browser from latitude, season and time of day. No weather station, satellite or forecast service is consulted, so the figures bear no relation to the actual conditions where you are.</p>',
         '<p>For a real forecast, use <a href="https://www.yr.no/" target="_blank" rel="noopener noreferrer">yr.no</a> or your national meteorological service.</p>',
         '</div>',
         '</div>',
