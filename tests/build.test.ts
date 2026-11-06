@@ -14,10 +14,11 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const COMPILED = ['app.js'];
-/** The generator output, by sha256, as at d75fc01 (cities.js is also SunApp's, byte for byte). */
+/** The generator output, by sha256: cities.js and gate.css as at d75fc01 (cities.js is also SunApp's, byte for byte),
+ * gate.js as the current build-gates.py wrote it on 6 November 2026 (tsc 6.0.3; script sha256 e184db18...52ca). */
 const GENERATED: Record<string, string> = {
   'cities.js': '2f08782c7f41df5eb95c15a4a668a389505bd4bfba059040d048cbc1324afce2',
-  'gate.js': '4c867b2a518e8e5d4bc085499b8cf40403bdd9a4471ff5557ee46641e95f2b28',
+  'gate.js': 'e6fee1d22d7cc1b0361f925a19feb985a027c46fa50556c872c4b4214915247f',
   'gate.css': 'a6476e69d0f625d74fa2d84f5e23620bd7d0129781de24c116619a3100f7c190',
 };
 const GENERATED_JS = Object.keys(GENERATED).filter((f) => f.endsWith('.js'));
@@ -33,7 +34,7 @@ test('the generator output (cities.js, gate.js, gate.css) is unchanged, byte for
     assert.equal(createHash('sha256').update(readFileSync(`${root}${f}`)).digest('hex'), sha, f);
   }
   assert.match(readFileSync(`${root}cities.js`, 'utf8'), /^\/\/ Stormberry Labs shared city catalogue\.\n\/\/ GENERATED FILE, DO NOT EDIT BY HAND\.\n/);
-  assert.match(readFileSync(`${root}gate.js`, 'utf8'), /GENERATED FILE\. Do not edit this copy/);
+  assert.match(readFileSync(`${root}gate.js`, 'utf8'), /^"use strict";\n\/\*! STORMBERRY FIRST-RUN GATE \(behaviour\)\. WeatherWhisper, mandatory tier\.\n {4}GENERATED FILE: build-gates\.py /);
 });
 
 test('the only JavaScript is compiled or generated output, each file marked so', (t) => {
