@@ -73,3 +73,13 @@ test('the model: day of the year, the hour text and the temperature', () => {
   assert.equal(page.call('calculateTemperature', [0, 100, 0]), '25.757359312880716');
   assert.equal(page.call('calculateTemperature', [90, 1, 23]), '-38.994356855828634');
 });
+
+test('the local day: a daylight-saving change does not move the day of the year, and the start date is the local day', () => {
+  const page = loadPage(root, NOW);
+  const days: [string, string][] = [['2026-03-30T00:00:00', '89'], ['2026-10-26T00:00:00', '299'], ['2026-12-31T23:59:00', '365']];
+  for (const [day, n] of days) {
+    assert.equal(page.call('getDayOfYear', [day]), n, day);
+  }
+  // 00:30 in Oslo on 5 November is still 4 November in UTC: the start date is the local day.
+  assert.equal(loadPage(root, Date.parse('2026-11-04T23:30:00Z')).state().start, '2026-11-05');
+});

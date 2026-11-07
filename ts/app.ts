@@ -53,17 +53,33 @@ function initCities(): void {
   cityInput.value = "";
 
   // Set default dates
-  const today = new Date();
-  const todayStr = today.toISOString().split('T')[0] ?? '';
-  dateStart.value = todayStr;
+  dateStart.value = toDayString(new Date());
   dateEnd.value = "";
 }
 
+/** The local calendar day of a date as YYYY-MM-DD (toISOString gives the UTC day, a day off near midnight). */
+function toDayString(date: Date): string {
+  const pad = (n: number): string => String(n).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
+/** A YYYY-MM-DD field value as local midnight of that day (new Date('YYYY-MM-DD') is UTC midnight,
+ *  which is the day before west of UTC). An empty or malformed value gives local midnight today. */
+function parseDay(value: string): Date {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  if (!m) {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  }
+  return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+}
+
+/** The day of the year (1 to 366) of the local calendar day of a date. Counted in UTC from the
+ *  local year, month and day, so a daylight-saving change cannot move it by one. */
 function getDayOfYear(date: Date): number {
-  const startOfYear = new Date(date.getFullYear(), 0, 0);
-  const diff = date.getTime() - startOfYear.getTime();
   const oneDay = 1000 * 60 * 60 * 24;
-  return Math.floor(diff / oneDay);
+  const day = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+  return Math.round((day - Date.UTC(date.getFullYear(), 0, 0)) / oneDay);
 }
 
 function formatTime(hour: number): string {
@@ -112,8 +128,8 @@ function updateUI(): void {
 
   const startStr = dateStart.value;
   const endStr = dateEnd.value;
-  const d1 = new Date(startStr || new Date());
-  const d2 = new Date(endStr || startStr || new Date());
+  const d1 = parseDay(startStr);
+  const d2 = parseDay(endStr || startStr);
 
   // Check if Range View
   if (endStr && d2 > d1) {

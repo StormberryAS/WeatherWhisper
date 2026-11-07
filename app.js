@@ -32,16 +32,25 @@ function initCities() {
     datalist.appendChild(fragment);
     currentCity = null;
     cityInput.value = "";
-    const today = new Date();
-    const todayStr = today.toISOString().split('T')[0] ?? '';
-    dateStart.value = todayStr;
+    dateStart.value = toDayString(new Date());
     dateEnd.value = "";
 }
+function toDayString(date) {
+    const pad = (n) => String(n).padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+function parseDay(value) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+    if (!m) {
+        const now = new Date();
+        return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    }
+    return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+}
 function getDayOfYear(date) {
-    const startOfYear = new Date(date.getFullYear(), 0, 0);
-    const diff = date.getTime() - startOfYear.getTime();
     const oneDay = 1000 * 60 * 60 * 24;
-    return Math.floor(diff / oneDay);
+    const day = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+    return Math.round((day - Date.UTC(date.getFullYear(), 0, 0)) / oneDay);
 }
 function formatTime(hour) {
     const h = Math.floor(hour);
@@ -79,8 +88,8 @@ function updateUI() {
     }
     const startStr = dateStart.value;
     const endStr = dateEnd.value;
-    const d1 = new Date(startStr || new Date());
-    const d2 = new Date(endStr || startStr || new Date());
+    const d1 = parseDay(startStr);
+    const d2 = parseDay(endStr || startStr);
     if (endStr && d2 > d1) {
         singleDateView.style.display = 'none';
         rangeDateView.style.display = 'block';
